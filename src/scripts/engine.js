@@ -43,14 +43,17 @@ for (let i = 0; i < emojis.length; i++) {
 function handleClick() {
     //alert("Hello");
     if (openCards.length < 2) {
-        if (this.classList.contains("boxOpen")) {
-            console.log('Ja Existe');
-            this.classList.remove("boxOpen");
-            openCards.pop(this);
-        } else {
-            this.classList.add("boxOpen");
-            openCards.push(this);
+        if (!this.classList.contains("boxMatch")) {
+            if (this.classList.contains("boxOpen")) {
+                console.log('Ja Existe');
+                this.classList.remove("boxOpen");
+                openCards.pop(this);
+            } else {
+                this.classList.add("boxOpen");
+                openCards.push(this);
+            }
         }
+        
         console.log(this);
         console.log(openCards);
     }
@@ -63,13 +66,29 @@ function handleClick() {
 function checkMatch() {
     if(openCards[0].innerText === openCards[1].innerHTML ){
         console.log('Isso Aíii');
-    }    
+        openCards[0].classList.add("boxMatch");
+        openCards[1].classList.add("boxMatch");
+        //openCards[0].classList.remove("boxOpen");
+        //openCards[1].classList.remove("boxOpen");
+        openCards[0].disabled = "disabled";
+        openCards[1].disabled = "disabled";
+    } else {
+        openCards[0].classList.remove("boxOpen");
+        openCards[1].classList.remove("boxOpen");
+
+    }
+    openCards = [];
+
+    //console.log(document.querySelectorAll(".boxMatch").length);
+    if (document.querySelectorAll(".boxMatch").length === emojis.length) {
+        
+        alert("Winner!");
+        
+    }
 }
 
-function inicialize() {
+//function inicialize() {
     
-}
-
-
+//}
 
 //inicialize();
